@@ -472,6 +472,23 @@ static bool EnumDevice(const GUID &type, IMoniker *deviceInfo,
 		return true;
 	}
 
+	//List problematic video input device names that we do not need to try to capture anyway:
+	static std::vector<std::wstring> blacklisted
+	{
+		L"VSeeFaceCamera",
+		L"VTubeStudioCam",
+		L"VMC_Camera",
+		L"Unity Video Capture"
+	};
+
+	if(deviceName.bstrVal && type == CLSID_VideoInputDeviceCategory)
+	{
+		auto foundIt = std::find(blacklisted.begin(), blacklisted.end(), deviceName.bstrVal);
+		if(foundIt != blacklisted.end())
+			return true;
+	}
+
+
 	propertyData->Read(L"DevicePath", &devicePath, NULL);
 
 	hr = deviceInfo->BindToObject(NULL, 0, IID_IBaseFilter,
