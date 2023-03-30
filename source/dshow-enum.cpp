@@ -478,7 +478,9 @@ static bool EnumDevice(const GUID &type, IMoniker *deviceInfo,
 		L"VSeeFaceCamera",
 		L"VTubeStudioCam",
 		L"VMC_Camera",
-		L"Unity Video Capture"
+		L"Unity Video Capture",
+		L"3tene Screen Capture",
+		L"Streamlabs Desktop Virtual Webcam",
 	};
 
 	if(deviceName.bstrVal && type == CLSID_VideoInputDeviceCategory)
